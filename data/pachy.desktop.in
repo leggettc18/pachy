@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+
+Name=Pachy
+Comment=Mastodon Client for the Elementary OS Desktop
+Categories=Internet;
+
+Icon=com.github.leggettc18.pachy
+Exec=com.github.leggettc18.pachy
+Terminal=false

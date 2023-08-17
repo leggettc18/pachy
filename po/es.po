@@ -1,0 +1,3 @@
+#: src/Application.vala:44
+msgid "Pachy"
+msgstr ""

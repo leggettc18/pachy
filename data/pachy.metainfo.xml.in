@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.github.leggettc18.pachy</id>
+
+  <name>Pachy</name>
+  <summary>Mastodon Client for the Elementary OS Desktop</summary>
+
+  <metadata_license>CC-BY-4.0</metadata_license>
+  <project_license>MIT</project_license>
+
+  <description>
+    <p>
+      Mastodon Client for the Elementary OS Desktop
+    </p>
+  </description>
+
+  <launchable type="desktop-id">com.github.leggettc18.pachy</launchable>
+</component>

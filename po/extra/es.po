@@ -1,0 +1,8 @@
+#: data/pachy.desktop.in:6 data/pachy.metainfo.xml.in:5
+msgid "Pachy"
+msgstr ""
+
+#: data/pachy.desktop.in:7 data/pachy.metainfo.xml.in:6
+#: data/pachy.metainfo.xml.in:12
+msgid "Mastodon Client for the Elementary OS Desktop"
+msgstr ""
