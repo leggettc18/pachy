@@ -14,5 +14,5 @@
     </p>
   </description>
 
-  <launchable type="desktop-id">com.github.leggettc18.pachy</launchable>
+  <launchable type="desktop-id">com.github.leggettc18.pachy.desktop</launchable>
 </component>

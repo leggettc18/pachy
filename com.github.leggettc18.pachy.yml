@@ -1,0 +1,15 @@
+app-id: com.github.leggettc18.pachy
+runtime: io.elementary.Platform
+runtime-version: '7.2'
+sdk: io.elementary.Sdk
+command: com.github.leggettc18.pachy
+finish-args:
+  - '--share=ipc'
+  - '--socket=fallback-x11'
+  - '--socket=wayland'
+modules:
+  - name: pachy
+    buildsystem: meson
+    sources:
+      - type: dir
+        path: .
