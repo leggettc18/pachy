@@ -8,6 +8,16 @@ public class App: Gtk.Application {
 
     protected override void activate () {
         base.activate ();
+
+        var granite_settings = Granite.Settings.get_default ();
+        var gtk_settings = Gtk.Settings.get_default ();
+        gtk_settings.gtk_application_prefer_dark_theme =
+            granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
+        granite_settings.notify["prefers-color-scheme"].connect (() => {
+            gtk_settings.gtk_application_prefer_dark_theme =
+                granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
+        });
+
         var start_header = new Gtk.HeaderBar () {
             show_title_buttons = false,
             title_widget = new Gtk.Label (""),
