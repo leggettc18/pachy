@@ -4,7 +4,7 @@ Type=Application
 
 Name=Pachy
 Comment=Mastodon Client for the Elementary OS Desktop
-Categories=Internet;
+Categories=Network;
 
 #Icon=com.github.leggettc18.pachy
 Exec=com.github.leggettc18.pachy
