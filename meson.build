@@ -21,10 +21,14 @@ config_file = configure_file(
 
 granite_dep = dependency('granite-7')
 gtk_dep = dependency('gtk4')
+webkit_dep = dependency('webkitgtk-6.0')
+json_dep = dependency('json-glib-1.0')
 
 dependencies = [
     granite_dep,
-    gtk_dep
+    gtk_dep,
+    webkit_dep,
+    json_dep,
 ]
 
 gnome.post_install(glib_compile_schemas: true)

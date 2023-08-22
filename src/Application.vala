@@ -1,13 +1,44 @@
-public class App: Gtk.Application {
+public class Pachy.App : Gtk.Application {
+    public const string ACTION_PREFIX = "app.";
+    public const string ACTION_SIGN_IN = "sign-in";
+
+    private const ActionEntry[] ACTION_ENTRIES = {
+        { ACTION_SIGN_IN, action_sign_in },
+    };
+
+    public Settings settings { get; private set; }
+
+    private Dialogs.Authentication? auth_dialog = null;
+    public Services.Mastodon? mastodon_service { get; private set; }
+
     public App () {
         Object (
             application_id: "com.github.leggettc18.pachy",
-            flags: ApplicationFlags.FLAGS_NONE
+            flags: ApplicationFlags.HANDLES_OPEN
         );
+    }
+
+    protected override void open (File[] files, string hint) {
+        debug ("hint: %s", hint);
+        foreach (File file in files) {
+            if (file.get_uri ().contains ("pachy://auth_code")) {
+                if (active_window != null && active_window == auth_dialog) {
+                    mastodon_service.request_auth_token.begin (file.get_uri (), (obj, res) => {
+                        var main_window = new MainWindow (this);
+                        add_window (main_window);
+                        main_window.present ();
+                        auth_dialog.destroy ();
+                    });
+                }
+            }
+        }
     }
 
     protected override void activate () {
         base.activate ();
+
+        add_action_entries (ACTION_ENTRIES, this);
+        settings = Settings.get_default ();
 
         var granite_settings = Granite.Settings.get_default ();
         var gtk_settings = Gtk.Settings.get_default ();
@@ -18,45 +49,25 @@ public class App: Gtk.Application {
                 granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
         });
 
-        var start_header = new Gtk.HeaderBar () {
-            show_title_buttons = false,
-            title_widget = new Gtk.Label (""),
-        };
-        start_header.add_css_class (Granite.STYLE_CLASS_FLAT);
-        start_header.pack_start (new Gtk.WindowControls (Gtk.PackType.START));
+        mastodon_service = Services.Mastodon.get_default ();
 
-        var start_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        start_box.append (start_header);
-
-        var end_header = new Gtk.HeaderBar () {
-            show_title_buttons = false,
-        };
-        end_header.add_css_class (Granite.STYLE_CLASS_FLAT);
-        end_header.pack_end (new Gtk.WindowControls (Gtk.PackType.END));
-
-        var end_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        end_box.add_css_class (Granite.STYLE_CLASS_VIEW);
-        end_box.append (end_header);
-
-        var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL) {
-            start_child = start_box,
-            end_child = end_box,
-            resize_start_child = false,
-            shrink_end_child = false,
-            shrink_start_child = false,
-        };
-
-        var main_window = new Gtk.ApplicationWindow (this) {
-            child = paned,
-            default_height = 400,
-            default_width = 600,
-            titlebar = new Gtk.Grid () { visible = false },
-            title = _("Pachy")
-        };
-        main_window.present ();
+        if (settings.client_id == "" || settings.client_secret == "" ||
+            settings.user_access_token == "") {
+            ((SimpleAction) lookup_action (ACTION_SIGN_IN)).activate (null);
+        } else {
+            var main_window = new MainWindow (this);
+            add_window (main_window);
+            main_window.present ();
+        }
     }
 
-    public static int main (string[] args) {
-        return new App ().run (args);
+    private void action_sign_in () {
+        auth_dialog = new Dialogs.Authentication (this);
+        add_window (auth_dialog);
+        auth_dialog.present ();
     }
+}
+
+public static int main (string[] args) {
+    return new Pachy.App ().run (args);
 }

@@ -5,7 +5,8 @@ Type=Application
 Name=Pachy
 Comment=Mastodon Client for the Elementary OS Desktop
 Categories=Network;
+MimeType=x-scheme-handler/pachy;
 
 #Icon=com.github.leggettc18.pachy
-Exec=com.github.leggettc18.pachy
+Exec=com.github.leggettc18.pachy %u
 Terminal=false
