@@ -35,7 +35,7 @@ public class Pachy.Services.Mastodon : Object {
         debug ("registering client");
         string url = REGISTER_CLIENT_URL.printf (settings.instance_url);
         var form_data = new Soup.Multipart (Soup.FORM_MIME_TYPE_MULTIPART);
-        form_data.append_form_string ("client_name", Constants.CLIENT_NAME);
+        form_data.append_form_string ("client_name", Build.NAME);
         form_data.append_form_string ("redirect_uris", "pachy://auth_code");
         form_data.append_form_string ("scopes", "read write push");
         form_data.append_form_string ("website", "https://github.com/leggettc18/pachy");

@@ -67,6 +67,6 @@ public class Pachy.MainWindow : Gtk.ApplicationWindow {
         default_height = 400;
         default_width = 600;
         titlebar = new Gtk.Grid () { visible = false };
-        title = _("Pachy");
+        title = "%s - %s".printf (Build.NAME, Build.VERSION);
     }
 }

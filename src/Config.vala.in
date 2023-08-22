@@ -1,5 +1,0 @@
-namespace Pachy.Constants {
-    public const string GETTEXT_PACKAGE = @GETTEXT_PACKAGE@;
-    public const string LOCALEDIR = @LOCALEDIR@;
-    public const string CLIENT_NAME = "Pachy";
-}

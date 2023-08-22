@@ -10,12 +10,32 @@ i18n = import('i18n')
 
 add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), language:'c')
 
+devel = get_option('devel')
+
 config_data = configuration_data()
+config_data.set_quoted('EXEC_NAME', meson.project_name())
+config_data.set_quoted('NAME', 'Pachy')
+config_data.set_quoted('DOMAIN', meson.project_name())
+config_data.set_quoted('G_LOG_DOMAIN', 'Pachy')
 config_data.set_quoted('LOCALEDIR', join_paths(get_option('prefix'), get_option('localedir')))
 config_data.set_quoted('GETTEXT_PACKAGE', meson.project_name())
+config_data.set_quoted('VERSION', meson.project_version())
+config_data.set_quoted('WEBSITE', 'https://github.com/leggettc18/pachy')
+config_data.set_quoted('SUPPORT_WEBSITE', 'https://github.com/leggettc18/pachy/issues')
+config_data.set_quoted('PROFILE', devel ? 'development' : 'production')
+
+if devel
+    git = find_program('git')
+    if git.found()
+        branch = run_command('git', 'branch', '--show-current', check: true).stdout().strip()
+        revision = run_command('git', 'rev-parse', '--short', 'HEAD', check: true).stdout().strip()
+        version = '@0@-@1@'.format(branch, revision)
+        config_data.set_quoted('VERSION', version)
+    endif
+endif
+
 config_file = configure_file(
-    input: 'src/Config.vala.in',
-    output: '@BASENAME@',
+    output: 'config.h',
     configuration: config_data
 )
 
@@ -33,6 +53,19 @@ dependencies = [
 
 gnome.post_install(glib_compile_schemas: true)
 
+sources = files(
+    'vapi/build.vapi',
+)
+
 subdir('data')
 subdir('po')
 subdir('src')
+
+executable(
+    meson.project_name(),
+    gresource,
+    sources,
+    config_file,
+    dependencies: dependencies,
+    install: true
+)
