@@ -6,25 +6,10 @@
       <summary>Mastodon Instance URL</summary>
       <description>Mastodon Instance URL</description>
     </key>
-    <key name="client-id" type="s">
+    <key name="active-account" type="s">
       <default>""</default>
-      <summary>Client ID</summary>
-      <description>Client ID</description>
-    </key>
-    <key name="client-secret" type="s">
-      <default>""</default>
-      <summary>Client Secret</summary>
-      <description>Client ID</description>
-    </key>
-    <key name="client-access-token" type="s">
-      <default>""</default>
-      <summary>Client Access Token</summary>
-      <description>Client Access Token</description>
-    </key>
-    <key name="user-access-token" type="s">
-      <default>""</default>
-      <summary>User Access Token</summary>
-      <description>User Access Token</description>
+      <summary>Active Account</summary>
+      <description>The currently active account</description>
     </key>
   </schema>
 </schemalist>

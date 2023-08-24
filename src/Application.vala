@@ -1,4 +1,12 @@
-public class Pachy.App : Gtk.Application {
+namespace Pachy {
+
+public static App app;
+
+public static Settings settings;
+public static Services.Accounts.AccountStore accounts;
+public static Services.Network.Network network;
+
+public class App : Gtk.Application {
     public const string ACTION_PREFIX = "app.";
     public const string ACTION_SIGN_IN = "sign-in";
 
@@ -6,10 +14,8 @@ public class Pachy.App : Gtk.Application {
         { ACTION_SIGN_IN, action_sign_in },
     };
 
-    public Settings settings { get; private set; }
-
-    private Dialogs.Authentication? auth_dialog = null;
-    public Services.Mastodon? mastodon_service { get; private set; }
+    private Dialogs.NewAccount? auth_dialog = null;
+    private MainWindow? main_window = null;
 
     public App () {
         Object (
@@ -22,13 +28,8 @@ public class Pachy.App : Gtk.Application {
         debug ("hint: %s", hint);
         foreach (File file in files) {
             if (file.get_uri ().contains ("pachy://auth_code")) {
-                if (active_window != null && active_window == auth_dialog) {
-                    mastodon_service.request_auth_token.begin (file.get_uri (), (obj, res) => {
-                        var main_window = new MainWindow (this);
-                        add_window (main_window);
-                        main_window.present ();
-                        auth_dialog.destroy ();
-                    });
+                if (auth_dialog != null) {
+                    auth_dialog.redirect (file.get_uri ());
                 }
             }
         }
@@ -39,6 +40,9 @@ public class Pachy.App : Gtk.Application {
 
         add_action_entries (ACTION_ENTRIES, this);
         settings = Settings.get_default ();
+        network = new Services.Network.Network ();
+        accounts = new Services.Accounts.SecretAccountStore ();
+        accounts.init ();
 
         var granite_settings = Granite.Settings.get_default ();
         var gtk_settings = Gtk.Settings.get_default ();
@@ -49,25 +53,37 @@ public class Pachy.App : Gtk.Application {
                 granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
         });
 
-        mastodon_service = Services.Mastodon.get_default ();
+        present_window ();
+    }
 
-        if (settings.client_id == "" || settings.client_secret == "" ||
-            settings.user_access_token == "") {
+    public void present_window (bool destroy_main = false) {
+        if (accounts.saved.is_empty) {
+            if (main_window != null && destroy_main) {
+                main_window.hide ();
+            }
+            message ("presenting new account dialog");
             ((SimpleAction) lookup_action (ACTION_SIGN_IN)).activate (null);
         } else {
-            var main_window = new MainWindow (this);
-            add_window (main_window);
+            message ("presenting main window");
+            if (main_window == null) {
+                main_window = new MainWindow ();
+                add_window (main_window);
+            }
             main_window.present ();
         }
     }
 
     private void action_sign_in () {
-        auth_dialog = new Dialogs.Authentication (this);
-        add_window (auth_dialog);
+        if (auth_dialog == null) {
+            auth_dialog = new Dialogs.NewAccount ();
+            add_window (auth_dialog);
+        }
         auth_dialog.present ();
     }
 }
+}
 
 public static int main (string[] args) {
-    return new Pachy.App ().run (args);
+    Pachy.app = new Pachy.App ();
+    return Pachy.app.run (args);
 }

@@ -43,12 +43,16 @@ granite_dep = dependency('granite-7')
 gtk_dep = dependency('gtk4')
 webkit_dep = dependency('webkitgtk-6.0')
 json_dep = dependency('json-glib-1.0')
+secret_dep = dependency('libsecret-1', required: true)
+gee_dep = dependency('gee-0.8')
 
 dependencies = [
     granite_dep,
     gtk_dep,
     webkit_dep,
     json_dep,
+    secret_dep,
+    gee_dep,
 ]
 
 gnome.post_install(glib_compile_schemas: true)

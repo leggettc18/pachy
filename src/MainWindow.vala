@@ -1,15 +1,10 @@
 public class Pachy.MainWindow : Gtk.ApplicationWindow {
-    public App app { get; construct; }
     private Gtk.HeaderBar start_header;
     private Gtk.HeaderBar end_header;
     private Gtk.Box start_box;
     private Gtk.Box end_box;
     private Gtk.Paned paned;
     private Gtk.Button sign_in_button;
-
-    public MainWindow (App app) {
-        Object (app: app);
-    }
 
     construct {
         start_header = new Gtk.HeaderBar () {
@@ -48,10 +43,7 @@ public class Pachy.MainWindow : Gtk.ApplicationWindow {
             margin_start = margin_end = 12,
         };
 
-        var display_name = new Gtk.Label ("");
-        app.mastodon_service.get_display_name.begin ((obj, res) => {
-            display_name.label = app.mastodon_service.get_display_name.end (res);
-        });
+        var display_name = new Gtk.Label (accounts.active.display_name);
         sign_in_box.append (display_name);
         end_box.append (sign_in_box);
 
