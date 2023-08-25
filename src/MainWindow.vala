@@ -46,6 +46,13 @@ public class Pachy.MainWindow : Gtk.ApplicationWindow {
         var display_name = new Gtk.Label (accounts.active.display_name);
         sign_in_box.append (display_name);
         end_box.append (sign_in_box);
+        Gtk.Image avatar = null;
+        image_cache.request_paintable (accounts.active.avatar, (is_loaded, paintable) => {
+            avatar = new Gtk.Image.from_paintable (paintable) {
+                pixel_size = 50,
+            };
+            sign_in_box.append (avatar);
+        });
 
         paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL) {
             start_child = start_box,

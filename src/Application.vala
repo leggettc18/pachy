@@ -1,10 +1,19 @@
 namespace Pachy {
 
+public errordomain PachyError {
+    USER,
+    PARSING,
+    INSTANCE,
+    INTERNAL
+}
+
 public static App app;
 
 public static Settings settings;
 public static Services.Accounts.AccountStore accounts;
 public static Services.Network.Network network;
+
+public static Services.Cache.ImageCache image_cache;
 
 public class App : Gtk.Application {
     public const string ACTION_PREFIX = "app.";
@@ -41,6 +50,9 @@ public class App : Gtk.Application {
         add_action_entries (ACTION_ENTRIES, this);
         settings = Settings.get_default ();
         network = new Services.Network.Network ();
+        image_cache = new Services.Cache.ImageCache () {
+            maintenance_secs = 60 * 5
+        };
         accounts = new Services.Accounts.SecretAccountStore ();
         accounts.init ();
 
