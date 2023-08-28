@@ -44,6 +44,11 @@ public class App : Gtk.Application {
         }
     }
 
+    protected override void startup () {
+        Granite.init ();
+        base.startup ();
+    }
+
     protected override void activate () {
         base.activate ();
 

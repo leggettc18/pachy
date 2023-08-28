@@ -1,3 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
+  <gresource prefix="/com/github/leggettc18/pachy">
+    <file alias="Application.css">app.css</file>
+  </gresource>
 </gresources>
