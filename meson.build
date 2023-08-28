@@ -45,6 +45,7 @@ webkit_dep = dependency('webkitgtk-6.0')
 json_dep = dependency('json-glib-1.0')
 secret_dep = dependency('libsecret-1', required: true)
 gee_dep = dependency('gee-0.8')
+math_dep = meson.get_compiler('c').find_library('m', required: true)
 
 dependencies = [
     granite_dep,
@@ -53,6 +54,7 @@ dependencies = [
     json_dep,
     secret_dep,
     gee_dep,
+    math_dep,
 ]
 
 gnome.post_install(glib_compile_schemas: true)
@@ -64,6 +66,7 @@ sources = files(
 subdir('data')
 subdir('po')
 subdir('src')
+subdir('internal')
 
 executable(
     meson.project_name(),
