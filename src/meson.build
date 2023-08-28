@@ -4,7 +4,7 @@ sources += files(
     'MainWindow.vala',
 )
 
-subdir ('API')
-subdir ('Services')
-subdir ('Dialogs')
-
+subdir('API')
+subdir('Services')
+subdir('Dialogs')
+subdir('Widgets')
