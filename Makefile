@@ -16,10 +16,7 @@ uninstall:
 	sudo ninja uninstall -C builddir
 
 flatpak:
-	flatpak-builder --user --install --force-clean build com.github.leggettc18.pachy.yml
-
-flatpak-dev:
-	flatpak-builder --user --install --force-clean build build-aux/com.github.leggettc18.pachy.Devel.yml
+	flatpak-builder --user --install --force-clean build $(if $(release),com.github.leggettc18.pachy.yml,build-aux/com.github.leggettc18.pachy.Devel.yml)
 
 flatpak-run:
 	G_MESSAGES_DEBUG=all flatpak run com.github.leggettc18.pachy

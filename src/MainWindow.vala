@@ -7,6 +7,9 @@ public class Pachy.MainWindow : Gtk.ApplicationWindow {
     private Gtk.Button sign_in_button;
 
     construct {
+        if (Build.PROFILE == "development") {
+            add_css_class ("devel");
+        }
         start_header = new Gtk.HeaderBar () {
             show_title_buttons = false,
             title_widget = new Gtk.Label (""),
