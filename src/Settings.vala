@@ -15,4 +15,9 @@ public class Pachy.Settings : GLib.Settings {
         owned get { return get_string ("active-account"); }
         set { set_string ("active-account", value); }
     }
+
+    public bool work_in_background {
+        get { return get_boolean ("work-in-background"); }
+        set { set_boolean ("work-in-background", value); }
+    }
 }

@@ -1,3 +1,4 @@
 sources += files(
-    'Avatar.vala'
+    'Avatar.vala',
+    'LabelWithWidgets.vala'
 )

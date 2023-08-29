@@ -1,7 +1,7 @@
 public class Pachy.Widgets.Avatar : Gtk.Button {
     public API.Account? account { get; set; }
-    private PachyLib.Widgets.Avatar? avatar {
-        get { return child as PachyLib.Widgets.Avatar; }
+    private Pachy.Internal.Widgets.Avatar? avatar {
+        get { return child as Pachy.Internal.Widgets.Avatar; }
     }
     public int size {
         get { return avatar.size; }
@@ -14,7 +14,7 @@ public class Pachy.Widgets.Avatar : Gtk.Button {
 
     construct {
         message ("initialzing Avatar Widget");
-        child = new PachyLib.Widgets.Avatar (48, null, true);
+        child = new Pachy.Internal.Widgets.Avatar (48, null, true);
         message ("created PachyLib Avatar");
         halign = valign = Gtk.Align.CENTER;
         css_classes = {

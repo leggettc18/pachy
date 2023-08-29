@@ -18,13 +18,15 @@ public static Services.Cache.ImageCache image_cache;
 public class App : Gtk.Application {
     public const string ACTION_PREFIX = "app.";
     public const string ACTION_SIGN_IN = "sign-in";
+    public const string ACTION_QUIT = "quit";
 
     private const ActionEntry[] ACTION_ENTRIES = {
         { ACTION_SIGN_IN, action_sign_in },
+        { ACTION_QUIT, action_quit },
     };
 
     private Dialogs.NewAccount? auth_dialog = null;
-    private MainWindow? main_window = null;
+    public MainWindow? main_window { get; set; default = null; }
 
     public App () {
         Object (
@@ -45,22 +47,19 @@ public class App : Gtk.Application {
     }
 
     protected override void startup () {
-        Granite.init ();
         base.startup ();
-    }
-
-    protected override void activate () {
-        base.activate ();
-
-        add_action_entries (ACTION_ENTRIES, this);
-        settings = Settings.get_default ();
-        network = new Services.Network.Network ();
-        image_cache = new Services.Cache.ImageCache () {
-            maintenance_secs = 60 * 5
-        };
-        accounts = new Services.Accounts.SecretAccountStore ();
-        accounts.init ();
-
+        try {
+            Granite.init ();
+            settings = Settings.get_default ();
+            network = new Services.Network.Network ();
+            image_cache = new Services.Cache.ImageCache () {
+                maintenance_secs = 60 * 5
+            };
+            accounts = new Services.Accounts.SecretAccountStore ();
+            accounts.init ();
+        } catch (Error e) {
+            error ("Could not start application: %s", e.message);
+        }
         var granite_settings = Granite.Settings.get_default ();
         var gtk_settings = Gtk.Settings.get_default ();
         gtk_settings.gtk_application_prefer_dark_theme =
@@ -69,6 +68,14 @@ public class App : Gtk.Application {
             gtk_settings.gtk_application_prefer_dark_theme =
                 granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
         });
+
+        set_accels_for_action (ACTION_PREFIX + ACTION_QUIT, { "<Ctrl>q" });
+        set_accels_for_action ("window.close", { "<Ctrl>w" });
+        add_action_entries (ACTION_ENTRIES, this);
+    }
+
+    protected override void activate () {
+        base.activate ();
 
         present_window ();
     }
@@ -88,6 +95,19 @@ public class App : Gtk.Application {
             }
             main_window.present ();
         }
+
+        if (main_window != null) {
+            main_window.close_request.connect (on_window_closed);
+        }
+    }
+
+    private bool on_window_closed () {
+        if (!settings.work_in_background || accounts.saved.is_empty) {
+            main_window.hide_on_close = false;
+        } else {
+            main_window.hide_on_close = true;
+        }
+        return false;
     }
 
     private void action_sign_in () {
@@ -96,6 +116,10 @@ public class App : Gtk.Application {
             add_window (auth_dialog);
         }
         auth_dialog.present ();
+    }
+
+    private void action_quit () {
+        app.quit ();
     }
 }
 }

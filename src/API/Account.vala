@@ -1,4 +1,4 @@
-public class Pachy.API.Account : Entity {
+public class Pachy.API.Account : Entity, Widgetizable {
     public string id { get; set; }
     public string username { get; set; }
     public string acct { get; set; }

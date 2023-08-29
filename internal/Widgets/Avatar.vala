@@ -1,4 +1,4 @@
-public class PachyLib.Widgets.Avatar : Gtk.Widget {
+public class Pachy.Internal.Widgets.Avatar : Gtk.Widget {
     private const int NUMBER_OF_COLORS = 14;
 
     private Gtk.Label _label;

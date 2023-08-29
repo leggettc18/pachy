@@ -11,5 +11,10 @@
       <summary>Active Account</summary>
       <description>The currently active account</description>
     </key>
+    <key name="work-in-background" type="b">
+      <default>false</default>
+      <summary>Work in Background</summary>
+      <description>Whether the app continues running with the window closed (to receive notifications, etc.)</description>
+    </key>
   </schema>
 </schemalist>

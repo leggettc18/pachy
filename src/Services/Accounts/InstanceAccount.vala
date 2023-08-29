@@ -21,6 +21,8 @@ public class Pachy.Services.Accounts.InstanceAccount : API.Account {
     public string? client_access_token { get; set; }
     public string? user_access_token { get; set; }
 
+    public ListStore known_places { get; set; default = new ListStore (typeof (API.Place)); }
+
     public new string handle_short {
         owned get { return @"@$username"; }
     }
@@ -42,6 +44,10 @@ public class Pachy.Services.Accounts.InstanceAccount : API.Account {
     public virtual signal void deactivated ();
     public virtual signal void added ();
     public virtual signal void removed ();
+
+    construct {
+        this.register_known_places (this.known_places);
+    }
 
     public InstanceAccount.empty (string instance) {
         Object (
@@ -66,4 +72,6 @@ public class Pachy.Services.Accounts.InstanceAccount : API.Account {
 
         message (@"$handle: profile updated");
     }
+
+    public virtual void register_known_places (ListStore places) {}
 }

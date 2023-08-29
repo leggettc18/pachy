@@ -1,24 +1,16 @@
 public class Pachy.MainWindow : Gtk.ApplicationWindow {
-    private Gtk.HeaderBar start_header;
     private Gtk.HeaderBar end_header;
-    private Gtk.Box start_box;
     private Gtk.Box end_box;
     private Gtk.Paned paned;
     private Gtk.Button sign_in_button;
+    private Views.Sidebar sidebar;
 
     construct {
         if (Build.PROFILE == "development") {
             add_css_class ("devel");
         }
-        start_header = new Gtk.HeaderBar () {
-            show_title_buttons = false,
-            title_widget = new Gtk.Label (""),
-        };
-        start_header.add_css_class (Granite.STYLE_CLASS_FLAT);
-        start_header.pack_start (new Gtk.WindowControls (Gtk.PackType.START));
 
-        start_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        start_box.append (start_header);
+        sidebar = new Views.Sidebar ();
 
         end_header = new Gtk.HeaderBar () {
             show_title_buttons = false,
@@ -49,13 +41,9 @@ public class Pachy.MainWindow : Gtk.ApplicationWindow {
         var display_name = new Gtk.Label (accounts.active.display_name);
         sign_in_box.append (display_name);
         end_box.append (sign_in_box);
-        var avatar = new Widgets.Avatar () {
-           account = accounts.active,
-        };
-        sign_in_box.append (avatar);
 
         paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL) {
-            start_child = start_box,
+            start_child = sidebar,
             end_child = end_box,
             resize_start_child = false,
             shrink_end_child = false,
@@ -67,5 +55,13 @@ public class Pachy.MainWindow : Gtk.ApplicationWindow {
         default_width = 600;
         titlebar = new Gtk.Grid () { visible = false };
         title = "%s - %s".printf (Build.NAME, Build.VERSION);
+    }
+
+    public void go_back_to_start () {
+        var navigated = true;
+        while (navigated) {
+            navigated = false;
+            // TODO: Handle Navigation
+        }
     }
 }
