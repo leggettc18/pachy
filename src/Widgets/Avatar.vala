@@ -13,9 +13,7 @@ public class Pachy.Widgets.Avatar : Gtk.Button {
     public string? avatar_url { get; set; }
 
     construct {
-        message ("initialzing Avatar Widget");
         child = new Pachy.Internal.Widgets.Avatar (48, null, true);
-        message ("created PachyLib Avatar");
         halign = valign = Gtk.Align.CENTER;
         css_classes = {
             Granite.STYLE_CLASS_CIRCULAR,
@@ -23,11 +21,9 @@ public class Pachy.Widgets.Avatar : Gtk.Button {
             "ttl-flat-button",
         };
 
-        message ("setting up signals");
         notify["account"].connect (on_invalidated);
         notify["avatar-url"].connect (on_avatar_url_change);
         on_invalidated ();
-        message ("initialized Avatar Widget");
     }
 
     private void on_avatar_url_change () {

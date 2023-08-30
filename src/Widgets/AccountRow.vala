@@ -17,7 +17,6 @@ public class Pachy.Widgets.AccountRow : Gtk.ListBoxRow {
         get { return subtitle_label.label; }
         set { subtitle_label.label = value; }
     }
-    public string tooltip_text { get; set; }
 
     private Avatar avatar;
     private Gtk.Button forget;
@@ -44,7 +43,7 @@ public class Pachy.Widgets.AccountRow : Gtk.ListBoxRow {
                 "display-name", this, "title", BindingFlags.SYNC_CREATE
             );
             switcher_handle = this.account.bind_property ("handle", this, "subtitle", BindingFlags.SYNC_CREATE);
-            switcher_tooltip = this.account.bind_property ("handle", this, "toopltip-text", BindingFlags.SYNC_CREATE);
+            switcher_tooltip = this.account.bind_property ("handle", this, "tooltip-text", BindingFlags.SYNC_CREATE);
             switcher_avatar = this.account.bind_property ("avatar", avatar, "avatar-url", BindingFlags.SYNC_CREATE);
         } else {
             title = _("Add Account");

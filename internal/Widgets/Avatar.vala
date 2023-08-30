@@ -277,7 +277,6 @@ public class Pachy.Internal.Widgets.Avatar : Gtk.Widget {
             _color_class = (_text.hash () % NUMBER_OF_COLORS) + 1;
         }
         new_class = "color%u".printf (_color_class);
-        debug (new_class);
         add_css_class (new_class);
     }
 }

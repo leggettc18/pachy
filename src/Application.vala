@@ -15,6 +15,8 @@ public static Services.Network.Network network;
 
 public static Services.Cache.ImageCache image_cache;
 
+public static Regex custom_emoji_regex;
+
 public class App : Gtk.Application {
     public const string ACTION_PREFIX = "app.";
     public const string ACTION_SIGN_IN = "sign-in";
@@ -125,6 +127,15 @@ public class App : Gtk.Application {
 }
 
 public static int main (string[] args) {
+    try {
+        Pachy.custom_emoji_regex = new Regex (
+            "(:[a-zA-Z0-9_]{2,}:)",
+            RegexCompileFlags.OPTIMIZE
+        );
+    } catch (RegexError e) {
+        warning (e.message);
+    }
+
     Pachy.app = new Pachy.App ();
     return Pachy.app.run (args);
 }

@@ -77,7 +77,6 @@ public class Pachy.Views.Sidebar : Gtk.Box, API.AccountHolder {
         account_button_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin_start = margin_end = margin_top = margin_bottom = 12,
         };
-        items_mode_box.append (account_button_box);
         avatar = new Widgets.Avatar ();
         account_button_box.append (avatar);
         avatar_title_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 4) {
@@ -87,8 +86,10 @@ public class Pachy.Views.Sidebar : Gtk.Box, API.AccountHolder {
         account_button_box.append (avatar_title_box);
 
         account_button = new Gtk.Button ();
+        account_button.clicked.connect (on_open);
         account_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         account_button.add_css_class ("no-border-radius");
+        items_mode_box.append (account_button);
         account_button.child = account_button_box;
 
         title = new Widgets.EmojiLabel ();
@@ -192,6 +193,7 @@ public class Pachy.Views.Sidebar : Gtk.Box, API.AccountHolder {
                 "content",
                 BindingFlags.SYNC_CREATE,
                 (b, src, ref target) => {
+                    title.instance_emojis = this.account.emojis_map;
                     target.set_string (src.get_string ());
                     return true;
                 }

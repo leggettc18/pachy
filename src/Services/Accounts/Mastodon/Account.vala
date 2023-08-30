@@ -25,66 +25,77 @@ public class Pachy.Services.Accounts.Mastodon.Account : Services.Accounts.Instan
         icon = "user-home-symbolic",
         title = _("Home"),
         open_func = null,
+        // TODO: Home View
     };
 
     public static API.Place place_messages = new API.Place () {
         icon = "mail-mailbox-symbolic",
         title = _("Direct Messages"),
         open_func = null,
+        // TODO: Messages View
     };
 
     public static API.Place place_bookmarks = new API.Place () {
-        icon = "user-bookmark-symbolic",
+        icon = "user-bookmarks-symbolic",
         title = _("Bookmarks"),
         open_func = null,
+        // TODO: Bookmarks View
     };
 
     public static API.Place place_favorites = new API.Place () {
         icon = "emblem-favorite-symbolic",
         title = _("Favorites"),
         open_func = null,
+        // TODO: Favorites view
     };
 
     public static API.Place place_lists = new API.Place () {
         icon = "text-x-generic-symbolic",
         title = _("Lists"),
         open_func = null,
+        // TODO: Lists view
     };
 
     public static API.Place place_explore = new API.Place () {
         icon = "location-active",
         title = _("Explore"),
         open_func = null,
+        // TODO: Explore view
     };
 
     public static API.Place place_local = new API.Place () {
         icon = "drive-harddisk-symbolic",
         title = _("Local"),
         open_func = null,
+        // TODO: Local View
     };
 
     public static API.Place place_federated = new API.Place () {
         icon = "network-workgroup-symbolic",
         title = _("Federated"),
         open_func = null,
+        // TODO: Federated View
     };
 
     public static API.Place place_follow_requests = new API.Place () {
         icon = "contact-new-symbolic",
         title = _("Follow Requests"),
         open_func = null,
+        // TODO: Follow Requests View
     };
 
     public static API.Place place_hashtags = new API.Place () {
         icon = "system-search-symbolic",
         title = _("Hashtags"),
         open_func = null,
+        // TODO: Hashtags view
     };
 
     public static API.Place place_announcements = new API.Place () {
         icon = "x-office-presentation-symbolic",
         title = _("Announcements"),
         open_func = null,
+        // TODO: Announcements view
     };
 
     public override void register_known_places (ListStore places) {

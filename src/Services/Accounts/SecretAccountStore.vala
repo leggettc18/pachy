@@ -45,6 +45,7 @@ public class Pachy.Services.Accounts.SecretAccountStore : AccountStore {
                         if (account.display_name != acc.display_name || account.avatar != acc.avatar) {
                             account.display_name = acc.display_name;
                             account.avatar = acc.avatar;
+                            account.emojis = acc.emojis;
 
                             account_to_secret (account);
                         }
@@ -139,7 +140,20 @@ public class Pachy.Services.Accounts.SecretAccountStore : AccountStore {
         builder.set_member_name ("backend");
         builder.add_string_value (account.backend);
 
-        // TODO: emojis
+        builder.set_member_name ("emojis");
+        builder.begin_array ();
+        if (account.emojis?.size > 0) {
+            foreach (var emoji in account.emojis) {
+                message ("saving emoji: %s - %s", emoji.shortcode, emoji.url);
+                builder.begin_object ();
+                builder.set_member_name ("shortcode");
+                builder.add_string_value (emoji.shortcode);
+                builder.set_member_name ("url");
+                builder.add_string_value (emoji.url);
+                builder.end_object ();
+            }
+        }
+        builder.end_array ();
 
         builder.end_object ();
         generator.set_root (builder.get_root ());

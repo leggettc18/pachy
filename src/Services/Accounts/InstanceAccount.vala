@@ -15,6 +15,7 @@ public class Pachy.Services.Accounts.InstanceAccount : API.Account {
     public const string KIND_EDITED = "update";
 
     public string? backend { get; set; }
+    public Gee.ArrayList<API.Emoji>? instance_emojis { get; set; }
     public string? instance { get; set; }
     public string? client_id { get; set; }
     public string? client_secret { get; set; }
@@ -40,7 +41,9 @@ public class Pachy.Services.Accounts.InstanceAccount : API.Account {
         }
     }
 
-    public virtual signal void activated ();
+    public virtual signal void activated () {
+        gather_instance_custom_emojis ();
+    }
     public virtual signal void deactivated ();
     public virtual signal void added ();
     public virtual signal void removed ();
@@ -74,4 +77,17 @@ public class Pachy.Services.Accounts.InstanceAccount : API.Account {
     }
 
     public virtual void register_known_places (ListStore places) {}
+
+    public void gather_instance_custom_emojis () {
+        new Services.Network.Request.GET ("/api/v1/custom_emojis")
+            .with_account (this)
+            .then ((sess, msg, in_stream) => {
+                var parser = Network.Network.get_parser_from_inputstream (in_stream);
+                var node = network.parse_node (parser);
+                Value res_emojis;
+                API.Entity.des_list (out res_emojis, node, typeof (API.Emoji));
+                instance_emojis = (Gee.ArrayList<API.Emoji>) res_emojis;
+            })
+            .exec ();
+    }
 }
