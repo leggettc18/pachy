@@ -14,31 +14,7 @@ public class Pachy.MainWindow : Gtk.ApplicationWindow {
 
         sidebar = new Views.Sidebar ();
 
-        base_view = new Views.TabbedBase ();
-        base_view.add_tab (
-            new Views.Base () {
-                label = "Home",
-                base_status = new Views.Base.StatusMessage () {
-                    message = "Home",
-                },
-            }
-        );
-        base_view.add_tab (
-            new Views.Base () {
-                label = "Notifications",
-                base_status = new Views.Base.StatusMessage () {
-                    message = "Notifications",
-                },
-            }
-        );
-        base_view.add_tab (
-            new Views.Base () {
-                label = "Conversations",
-                base_status = new Views.Base.StatusMessage () {
-                    message = "Conversations",
-                },
-            }
-        );
+        base_view = new Views.Main ();
 
         paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL) {
             start_child = sidebar,

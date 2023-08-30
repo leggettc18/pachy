@@ -76,8 +76,12 @@ public class Pachy.Views.Base : Gtk.Box {
 
     construct {
         orientation = Gtk.Orientation.VERTICAL;
-        width_request = 360;
+        width_request = 480;
         add_css_class (Granite.STYLE_CLASS_VIEW);
+
+        back_button = new Gtk.Button.with_label (_("Back"));
+        back_button.clicked.connect (on_close);
+        back_button.add_css_class (Granite.STYLE_CLASS_BACK_BUTTON);
 
         build_actions ();
         build_header ();
@@ -85,9 +89,7 @@ public class Pachy.Views.Base : Gtk.Box {
         append (header);
 
         // Back Button
-        back_button = new Gtk.Button.with_label (_("Back"));
-        back_button.clicked.connect (on_close);
-        back_button.add_css_class (Granite.STYLE_CLASS_BACK_BUTTON);
+        header.pack_start (back_button);
 
         // Main View
         scrolled_overlay = new Gtk.Overlay ();
