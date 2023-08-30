@@ -139,7 +139,7 @@ public class Pachy.Dialogs.NewAccount : Gtk.Window {
         yield msg.await ();
 
         var parser = Services.Network.Network.get_parser_from_inputstream (msg.response_body);
-        var root = network.parse (parser);
+        var root = Services.Network.Network.parse (parser);
 
         if (root.get_string_member ("name") != Build.NAME) {
             throw new Services.Network.NetworkError.INSTANCE (_("Misconfigured Instance"));
@@ -163,7 +163,7 @@ public class Pachy.Dialogs.NewAccount : Gtk.Window {
         yield msg.await ();
 
         var parser = Services.Network.Network.get_parser_from_inputstream (msg.response_body);
-        var root = network.parse (parser);
+        var root = Services.Network.Network.parse (parser);
 
         account.client_access_token = root.get_string_member ("access_token");
         message ("OK: Obtained client access token");
@@ -181,7 +181,7 @@ public class Pachy.Dialogs.NewAccount : Gtk.Window {
         yield token_req.await ();
 
         var parser = Services.Network.Network.get_parser_from_inputstream (token_req.response_body);
-        var root = network.parse (parser);
+        var root = Services.Network.Network.parse (parser);
 
         account.user_access_token = root.get_string_member ("access_token");
         message ("OK: Obtained user access token");

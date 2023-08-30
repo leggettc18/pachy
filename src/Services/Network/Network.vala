@@ -64,7 +64,7 @@ public class Pachy.Services.Network.Network : Object {
 
                         try {
                             var parser = Network.get_parser_from_inputstream (in_stream);
-                            var root = network.parse (parser);
+                            var root = Network.parse (parser);
                             error_msg = root.get_string_member_with_default ("error", msg.reason_phrase);
                         } catch (Error e) {
                             warning (e.message);
@@ -87,11 +87,11 @@ public class Pachy.Services.Network.Network : Object {
         // TODO: app.toast (message);
     }
 
-    public Json.Node parse_node (Json.Parser parser) {
+    public static Json.Node parse_node (Json.Parser parser) {
         return parser.get_root ();
     }
 
-    public Json.Object parse (Json.Parser parser) {
+    public static Json.Object parse (Json.Parser parser) {
         return parse_node (parser).get_object ();
     }
 

@@ -69,7 +69,7 @@ public class Pachy.Services.Accounts.InstanceAccount : API.Account {
 
     public void update_object (InputStream in_stream) throws Error {
         var parser = Network.Network.get_parser_from_inputstream (in_stream);
-        var node = network.parse_node (parser);
+        var node = Network.Network.parse_node (parser);
         var updated = API.Account.from (node);
         patch (updated);
 
@@ -83,7 +83,7 @@ public class Pachy.Services.Accounts.InstanceAccount : API.Account {
             .with_account (this)
             .then ((sess, msg, in_stream) => {
                 var parser = Network.Network.get_parser_from_inputstream (in_stream);
-                var node = network.parse_node (parser);
+                var node = Network.Network.parse_node (parser);
                 Value res_emojis;
                 API.Entity.des_list (out res_emojis, node, typeof (API.Emoji));
                 instance_emojis = (Gee.ArrayList<API.Emoji>) res_emojis;

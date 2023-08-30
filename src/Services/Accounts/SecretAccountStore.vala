@@ -39,7 +39,7 @@ public class Pachy.Services.Accounts.SecretAccountStore : AccountStore {
                     .with_account (account)
                     .then ((sess, msg, in_stream) => {
                         var parser = Network.Network.get_parser_from_inputstream (in_stream);
-                        var node = network.parse_node (parser);
+                        var node = Network.Network.parse_node (parser);
                         var acc = API.Account.from (node);
 
                         if (account.display_name != acc.display_name || account.avatar != acc.avatar) {

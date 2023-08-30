@@ -10,8 +10,8 @@ public class Pachy.Widgets.AccountRow : Gtk.ListBoxRow {
         }
     }
     public string title {
-        get { return title_label.label; }
-        set { title_label.label = value; }
+        get { return title_label.content; }
+        set { title_label.content = value; }
     }
     public string subtitle {
         get { return subtitle_label.label; }
@@ -20,12 +20,13 @@ public class Pachy.Widgets.AccountRow : Gtk.ListBoxRow {
 
     private Avatar avatar;
     private Gtk.Button forget;
-    private Gtk.Label title_label;
+    private EmojiLabel title_label;
     private Gtk.Label subtitle_label;
     private Gtk.Box box;
     private Gtk.Box label_box;
 
     private Binding switcher_display_name;
+    private Binding switcher_emojis;
     private Binding switcher_handle;
     private Binding switcher_tooltip;
     private Binding switcher_avatar;
@@ -41,6 +42,9 @@ public class Pachy.Widgets.AccountRow : Gtk.ListBoxRow {
         if (account != null) {
             switcher_display_name = this.account.bind_property (
                 "display-name", this, "title", BindingFlags.SYNC_CREATE
+            );
+            switcher_emojis = this.account.bind_property (
+                "emojis-map", title_label, "instance-emojis", BindingFlags.SYNC_CREATE
             );
             switcher_handle = this.account.bind_property ("handle", this, "subtitle", BindingFlags.SYNC_CREATE);
             switcher_tooltip = this.account.bind_property ("handle", this, "tooltip-text", BindingFlags.SYNC_CREATE);
@@ -61,8 +65,8 @@ public class Pachy.Widgets.AccountRow : Gtk.ListBoxRow {
         forget = new Gtk.Button.from_icon_name ("user-trash-symbolic");
         forget.add_css_class (Granite.STYLE_CLASS_CIRCULAR);
         forget.clicked.connect (on_forget);
-        title_label = new Gtk.Label (_("Add Account")) {
-            ellipsize = Pango.EllipsizeMode.END,
+        title_label = new EmojiLabel (_("Add Account")) {
+            ellipsize = true,
         };
         subtitle_label = new Gtk.Label ("") {
             ellipsize = Pango.EllipsizeMode.END,

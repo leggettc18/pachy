@@ -38,7 +38,7 @@ public class Pachy.MainWindow : Gtk.ApplicationWindow {
             margin_start = margin_end = 12,
         };
 
-        var display_name = new Gtk.Label (accounts.active.display_name);
+        var display_name = new Widgets.EmojiLabel (accounts.active.display_name, accounts.active.emojis_map);
         sign_in_box.append (display_name);
         end_box.append (sign_in_box);
 

@@ -126,7 +126,7 @@ public abstract class Pachy.Services.Accounts.AccountStore : Object {
         yield req.await ();
 
         var parser = Network.Network.get_parser_from_inputstream (req.response_body);
-        var root = network.parse (parser);
+        var root = Network.Network.parse (parser);
 
         string? backend = null;
         backend_tests.foreach (test => {
