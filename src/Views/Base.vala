@@ -201,10 +201,8 @@ public class Pachy.Views.Base : Gtk.Box {
     protected virtual void build_actions () {}
 
     protected virtual void build_header () {
-        //var title_label = new Gtk.Label ("%s - %s".printf (Build.NAME, Build.VERSION));
         header = new Gtk.HeaderBar () {
             show_title_buttons = false,
-            //title_widget = title_label,
         };
         header.add_css_class (Granite.STYLE_CLASS_FLAT);
         header.pack_end (new Gtk.WindowControls (Gtk.PackType.END));

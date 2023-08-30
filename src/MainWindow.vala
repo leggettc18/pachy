@@ -1,7 +1,7 @@
 public class Pachy.MainWindow : Gtk.ApplicationWindow {
     private Gtk.Paned paned;
     private Views.Sidebar sidebar;
-    private Views.Base base_view;
+    private Views.TabbedBase base_view;
 
     construct {
         default_height = 400;
@@ -14,9 +14,31 @@ public class Pachy.MainWindow : Gtk.ApplicationWindow {
 
         sidebar = new Views.Sidebar ();
 
-        base_view = new Views.Base () {
-            base_status = new Views.Base.StatusMessage (),
-        };
+        base_view = new Views.TabbedBase ();
+        base_view.add_tab (
+            new Views.Base () {
+                label = "Home",
+                base_status = new Views.Base.StatusMessage () {
+                    message = "Home",
+                },
+            }
+        );
+        base_view.add_tab (
+            new Views.Base () {
+                label = "Notifications",
+                base_status = new Views.Base.StatusMessage () {
+                    message = "Notifications",
+                },
+            }
+        );
+        base_view.add_tab (
+            new Views.Base () {
+                label = "Conversations",
+                base_status = new Views.Base.StatusMessage () {
+                    message = "Conversations",
+                },
+            }
+        );
 
         paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL) {
             start_child = sidebar,
