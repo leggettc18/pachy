@@ -75,6 +75,9 @@ public class Pachy.API.Entity : Object, Widgetizable, Json.Serializable {
                 case "languages":
                 case "authors":
                     return des_list_string (out val, node);
+                case "mentions":
+                    contains = typeof (Mention);
+                    break;
                 case "emojis":
                     contains = typeof (Emoji);
                     break;

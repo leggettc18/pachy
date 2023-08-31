@@ -25,7 +25,7 @@ public class Pachy.API.Status : Entity, Widgetizable {
     public string visibility { get; set; default = settings.default_post_visibility; }
     public Status? reblog { get; set; default = null; }
     public Status? quote { get; set; default = null; }
-    // TODO: Mentions
+    public Gee.ArrayList<Mention>? mentions { get; set; default = null; }
     // TODO: EmojiReactions
     // TODO: Pleroma Status
     // TODO: Attachments
@@ -112,4 +112,21 @@ public class Pachy.API.Status : Entity, Widgetizable {
 
     public bool is_mine { get { return formal.account.id == accounts.active.id; } }
     // TODO: MediaAttachments
+
+    public virtual string get_reply_mentions () {
+        var result = "";
+        if (account.acct != accounts.active.acct) {
+            result = @"$(account.handle) ";
+        }
+        if (mentions != null) {
+            foreach (var mention in mentions) {
+                var equals_current = mention.acct == accounts.active.acct;
+                var already_mentioned = mention.acct in result;
+                if (!equals_current && !already_mentioned) {
+                    result += @"$(mention.handle) ";
+                }
+            }
+        }
+        return result;
+    }
 }

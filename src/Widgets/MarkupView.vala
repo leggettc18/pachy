@@ -14,7 +14,7 @@ public class Pachy.Widgets.MarkupView : Gtk.Box {
     }
 
     public Gee.HashMap<string, string>? instance_emojis { get; set; default = null; }
-    // TODO: API.Mention
+    public weak Gee.ArrayList<API.Mention>? mentions { get; set; default = null; }
 
     private bool _selectable = false;
     public bool selectable {
@@ -78,7 +78,9 @@ public class Pachy.Widgets.MarkupView : Gtk.Box {
             if (instance_emojis != null) {
                 label.instance_emojis = instance_emojis;
             }
-            // TODO; API.Mention
+            if (mentions != null) {
+                label.mentions = mentions;
+            }
             label.label = current_chunk.strip ();
             append (label);
         }

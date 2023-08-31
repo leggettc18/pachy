@@ -159,6 +159,7 @@ public class Pachy.Views.Base : Gtk.Box {
             vexpand = true,
             visible = true,
         };
+        content_box.add_css_class ("ttl-view");
         scrolled = new Gtk.ScrolledWindow () {
             vexpand = true,
             hscrollbar_policy = Gtk.PolicyType.NEVER,

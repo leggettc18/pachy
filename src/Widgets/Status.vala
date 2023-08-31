@@ -189,7 +189,7 @@ public class Pachy.Widgets.Status : Gtk.Widget {
         name_flowbox = new Gtk.FlowBox () {
             selection_mode = Gtk.SelectionMode.NONE,
             column_spacing = 6,
-            max_children_per_line = 1000,
+            max_children_per_line = 100,
         };
         name_button = new Gtk.Button () {
             halign = Gtk.Align.START,
@@ -476,13 +476,13 @@ public class Pachy.Widgets.Status : Gtk.Widget {
     protected string date {
         owned get {
             if (expanded) {
-                var date_local = _("%B, %e %Y");
+                var date_local = _("%B %e, %Y");
                 var date_parsed = new DateTime.from_iso8601 (status.formal.edited_at ?? status.formal.created_at, null);
                 date_parsed = date_parsed.to_timezone (new TimeZone.local ());
 
                 return date_parsed.format (@"$date_local $expanded_separator %H:%M").replace (" ", "");
             } else {
-                return status.formal.edited_at ?? status.formal.created_at;
+                return Utils.DateTime.humanize (status.formal.edited_at ?? status.formal.created_at);
             }
         }
     }
@@ -541,8 +541,8 @@ public class Pachy.Widgets.Status : Gtk.Widget {
                     size = 34,
                     valign = Gtk.Align.START,
                     halign = Gtk.Align.START,
-                    css_classes = { "ttl-status-avatar-actor", Granite.STYLE_CLASS_FLAT },
                 };
+                actor_avatar.add_css_class ("ttl-status-avatar-actor");
 
                 if (this.kind_instigator != null) {
                     actor_avatar_binding = this.bind_property (
@@ -615,7 +615,7 @@ public class Pachy.Widgets.Status : Gtk.Widget {
         //actions.reply.connect (on_reply_button_cilcked);
         //content_column.append (actions);
 
-        //this.content.mentions = status.formal.mentions;
+        this.content.mentions = status.formal.mentions;
         this.content.instance_emojis = status.formal.emojis_map;
         this.content.content = status.formal.content;
 

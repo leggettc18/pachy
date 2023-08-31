@@ -1,7 +1,7 @@
 public class Pachy.Widgets.RichLabel : Gtk.Widget {
     EmojiLabel widget;
 
-    // TODO: API.Mention
+    public weak Gee.ArrayList<API.Mention>? mentions;
 
     public string label {
         get { return widget.content; }
@@ -79,13 +79,20 @@ public class Pachy.Widgets.RichLabel : Gtk.Widget {
     }
 
     public bool on_activate_link (string url) {
-        // TODO: handle Mentions
-        //if (mentions != null) {
-        //    bool found = false;
-        //    if (found) {
-        //        return true;
-        //    }
-        //}
+        if (mentions != null) {
+            bool found = false;
+            mentions.@foreach (mention => {
+                if (url == mention.url) {
+                    mention.open ();
+                    found = true;
+                    return false;
+                }
+                return true;
+            });
+            if (found) {
+                return true;
+            }
+        }
         if ("/tags/" in url) {
             var from_url = Path.get_basename (url);
             var decoded = Uri.unescape_string (url) ?? from_url;

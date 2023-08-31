@@ -34,3 +34,72 @@ avatar {
     border-radius: 100%;
     background-color: @base_color;
 }
+
+.ttl-view .content row:not(.ttl-post) {
+    padding: 0px;
+}
+
+.ttl-post-actions {
+    margin-bottom: -12px;
+}
+
+.ttl-status-line-height-large {
+    line-height: 1.4;
+}
+
+.ttl-status-heading {
+    font-size: small;
+}
+
+.ttl-status-heading-padding {
+    margin-top: -5px;
+    padding: 0 5px;
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+.ttl-name-button {
+    padding: 0 5px;
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+.ttl-quote {
+    border-radius: 6px;
+    font-wieght: initial;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.card-spacing {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.ttl-view .content :first-child .card.card-spacing {
+    margin-top: 0px;
+}
+
+.ttl-view .content :last-child .card.card-spacing {
+    margin-bottom: 0px;
+}
+
+.ttl-view .small.content row .card {
+    border-left: none;
+    border-right: none;
+    border-radius: 0px;
+}
+
+.ttl-view .small.content :not(:last-child) .card {
+    border-bottom: 1px @borders solid;
+}
+
+.ttl-view .small.content .card {
+    box-shadow: none;
+}
+
+.ttl-view .small.content .card.card-spacing {
+    margin: 0px;
+}
