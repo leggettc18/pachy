@@ -4,4 +4,7 @@ sources += files(
     'AccountRow.vala',
     'Emoji.vala',
     'EmojiLabel.vala',
+    'MarkupView.vala',
+    'RichLabel.vala',
+    'Status.vala',
 )

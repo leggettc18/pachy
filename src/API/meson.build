@@ -4,5 +4,6 @@ sources += files (
     'Emoji.vala',
     'Entity.vala',
     'Place.vala',
+    'Status.vala',
     'Widgetizable.vala',
 )

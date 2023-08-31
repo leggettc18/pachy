@@ -45,6 +45,7 @@ webkit_dep = dependency('webkitgtk-6.0')
 json_dep = dependency('json-glib-1.0')
 secret_dep = dependency('libsecret-1', required: true)
 gee_dep = dependency('gee-0.8')
+xml_dep = dependency('libxml-2.0')
 math_dep = meson.get_compiler('c').find_library('m', required: true)
 
 dependencies = [
@@ -54,6 +55,7 @@ dependencies = [
     json_dep,
     secret_dep,
     gee_dep,
+    xml_dep,
     math_dep,
 ]
 

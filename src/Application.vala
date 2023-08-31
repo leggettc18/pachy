@@ -12,10 +12,14 @@ public static App app;
 public static Settings settings;
 public static Services.Accounts.AccountStore accounts;
 public static Services.Network.Network network;
+public static Services.Network.Streams streams;
 
 public static Services.Cache.ImageCache image_cache;
+public static Services.Cache.EntityCache entity_cache;
 
 public static Regex custom_emoji_regex;
+public static Regex rtl_regex;
+public static bool is_rtl;
 
 public class App : Gtk.Application {
     public const string ACTION_PREFIX = "app.";
@@ -29,6 +33,8 @@ public class App : Gtk.Application {
 
     private Dialogs.NewAccount? auth_dialog = null;
     public MainWindow? main_window { get; set; default = null; }
+
+    public signal void refresh ();
 
     public App () {
         Object (
@@ -53,7 +59,9 @@ public class App : Gtk.Application {
         try {
             Granite.init ();
             settings = Settings.get_default ();
+            streams = new Services.Network.Streams ();
             network = new Services.Network.Network ();
+            entity_cache = new Services.Cache.EntityCache ();
             image_cache = new Services.Cache.ImageCache () {
                 maintenance_secs = 60 * 5
             };
@@ -94,6 +102,7 @@ public class App : Gtk.Application {
             if (main_window == null) {
                 main_window = new MainWindow ();
                 add_window (main_window);
+                is_rtl = Gtk.Widget.get_default_direction () == Gtk.TextDirection.RTL;
             }
             main_window.present ();
         }
@@ -123,6 +132,10 @@ public class App : Gtk.Application {
     private void action_quit () {
         app.quit ();
     }
+
+    private void refresh_activated () {
+        refresh ();
+    }
 }
 }
 
@@ -131,6 +144,15 @@ public static int main (string[] args) {
         Pachy.custom_emoji_regex = new Regex (
             "(:[a-zA-Z0-9_]{2,}:)",
             RegexCompileFlags.OPTIMIZE
+        );
+    } catch (RegexError e) {
+        warning (e.message);
+    }
+    try {
+        Pachy.rtl_regex = new Regex (
+            "[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]",
+            RegexCompileFlags.OPTIMIZE,
+            RegexMatchFlags.ANCHORED
         );
     } catch (RegexError e) {
         warning (e.message);

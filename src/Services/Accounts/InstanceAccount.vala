@@ -76,6 +76,69 @@ public class Pachy.Services.Accounts.InstanceAccount : API.Account {
         message (@"$handle: profile updated");
     }
 
+    public async API.Entity resolve (string url) throws Error {
+        message (@"Resolving URL: \"$url\"…");
+        // TODO: API.SearchResults
+        API.Entity? entity = null;
+        return entity;
+    }
+
+    public virtual void describe_kind (
+        string kind,
+        out string? icon,
+        out string? descr,
+        API.Account account,
+        out string? descr_url
+    ) {
+        switch (kind) {
+            case KIND_MENTION:
+                icon = "mail-unread-symbolic";
+                descr = _("%s mentioned you").printf (account.display_name);
+                descr_url = account.url;
+                break;
+            case KIND_REBLOG:
+                icon = "media-playlist-repeat-symbolic";
+                descr = _("%s boosted your post").printf (account.display_name);
+                descr_url = account.url;
+                break;
+            case KIND_REMOTE_REBLOG:
+                icon = "media-playlist-repeat-symbolic";
+                descr = _("%s boosted").printf (account.display_name);
+                descr_url = account.url;
+                break;
+            case KIND_FAVORITE:
+                icon = "starred-symbolic";
+                descr = _("%s favorited your post").printf (account.display_name);
+                descr_url = account.url;
+                break;
+            case KIND_FOLLOW:
+                icon = "contact-new-symbolic";
+                descr = _("%s followed you").printf (account.display_name);
+                descr_url = account.url;
+                break;
+            case KIND_FOLLOW_REQUEST:
+                icon = "contact-new-symbolic";
+                descr = _("%s wants to follow you").printf (account.display_name);
+                descr_url = account.url;
+                break;
+            case KIND_POLL:
+                icon = "align-horizontal-left-symbolic";
+                descr = _("Poll Results");
+                descr_url = null;
+                break;
+            case KIND_EDITED:
+                icon = "document-edit-symbolic";
+                descr = _("%s edited a post").printf (account.display_name);
+                descr_url = null;
+                break;
+            default:
+                icon = null;
+                descr = null;
+                descr_url = null;
+                break;
+        }
+    }
+
     public virtual void register_known_places (ListStore places) {}
 
     public void gather_instance_custom_emojis () {

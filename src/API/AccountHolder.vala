@@ -8,7 +8,7 @@ public interface Pachy.API.AccountHolder : Object {
         on_accounts_changed (accounts.saved);
     }
 
-    protected void descrut_account_holder () {
+    protected void destruct_account_holder () {
         accounts.switched.disconnect (on_account_changed);
         accounts.changed.disconnect (on_accounts_changed);
     }

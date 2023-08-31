@@ -61,6 +61,10 @@ public class Pachy.API.Account : Entity, Widgetizable {
         return Entity.from_json (typeof (API.Account), node) as API.Account;
     }
 
+    public bool is_self () {
+        return id == accounts.active.id;
+    }
+
     public override bool is_local (Services.Accounts.InstanceAccount account) {
         return account.domain in url;
     }

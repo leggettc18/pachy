@@ -7,3 +7,30 @@ avatar {
     padding: 0px;
     margin:0px;
 }
+
+.ttl-status-avatar-actor {
+    margin-top: -20px;
+    margin-left: -6px;
+    padding: 0;
+    background: none;
+}
+
+.ttl-thread-line {
+    background: @theme_fg_color;
+    opacity: .1;
+}
+
+.ttl-thread-line.top {
+    margin-top: -18px;
+    margin-bottom: -3px;
+}
+
+.ttl-thread-line.bottom {
+    margin-bottom: -20px;
+}
+
+.ttl-status-avatar-border {
+    border: 3px solid @base_color;
+    border-radius: 100%;
+    background-color: @base_color;
+}

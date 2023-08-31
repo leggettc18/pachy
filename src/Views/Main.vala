@@ -2,14 +2,7 @@ public class Pachy.Views.Main : TabbedBase {
     construct {
         is_main = true;
 
-        add_tab (
-            new Views.Base () {
-                label = "Home",
-                base_status = new Views.Base.StatusMessage () {
-                    message = "Home",
-                },
-            }
-        );
+        add_tab (new Home ());
         add_tab (
             new Views.Base () {
                 label = "Notifications",

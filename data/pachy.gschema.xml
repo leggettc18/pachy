@@ -16,5 +16,23 @@
       <summary>Work in Background</summary>
       <description>Whether the app continues running with the window closed (to receive notifications, etc.)</description>
     </key>
+    <key name="live-updates" type="b">
+      <default>true</default>
+    </key>
+    <key name="public-live-updates" type="b">
+      <default>false</default>
+    </key>
+    <key name="timeline-page-size" type="i">
+      <default>20</default>
+    </key>
+    <key name="default-post-visibility" type="s">
+      <default>"public"</default>
+    </key>
+    <key name="aggressive-resolving" type="b">
+      <default>false</default>
+    </key>
+    <key name="enlarge-custom-emojis" type="b">
+      <default>false</default>
+    </key>
   </schema>
 </schemalist>

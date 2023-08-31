@@ -5,6 +5,8 @@ public class Pachy.Internal.Widgets.LabelWithWidgets: Gtk.Widget {
     private int[] widget_heights = {};
     private int[] widget_widths = {};
 
+    public signal bool activate_link (string uri);
+
     public int lines {
         get { return label.lines; }
         set { label.lines = value; }
@@ -75,6 +77,7 @@ public class Pachy.Internal.Widgets.LabelWithWidgets: Gtk.Widget {
             valign = Gtk.Align.START,
         };
         label.set_parent (this);
+        label.activate_link.connect ((url) => activate_link (url));
     }
 
     ~LabelWithWidgets () {

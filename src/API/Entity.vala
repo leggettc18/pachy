@@ -2,7 +2,7 @@ public errordomain Pachy.API.EntityError {
     PARSING,
 }
 
-public class Pachy.API.Entity : Object, Json.Serializable {
+public class Pachy.API.Entity : Object, Widgetizable, Json.Serializable {
     public virtual bool is_local (Services.Accounts.InstanceAccount account) {
         return true;
     }
