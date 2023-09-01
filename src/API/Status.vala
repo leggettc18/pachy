@@ -73,7 +73,12 @@ public class Pachy.API.Status : Entity, Widgetizable {
     public bool is_edited { get { return edited_at != null; } }
     public Status formal { get { return reblog ?? this; } }
     public bool has_spoiler { get { return !(formal.spoiler_text == null || formal.spoiler_text == ""); } }
-    // TODO: can_be_bosted (depends on visibility)
+    public bool can_be_boosted {
+        get {
+            return this.formal.visibility != "direct"
+                && (this.formal.visibility != "private" || this.formal.account.is_self ());
+        }
+    }
 
     public static Status from (Json.Node node) throws Error {
         return Entity.from_json (typeof (API.Status), node) as API.Status;

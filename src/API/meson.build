@@ -7,4 +7,5 @@ sources += files (
     'Place.vala',
     'Status.vala',
     'Widgetizable.vala',
+    'Visibility.vala',
 )

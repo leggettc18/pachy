@@ -59,6 +59,13 @@ public class Pachy.Services.Accounts.InstanceAccount : API.Account {
         );
     }
 
+    public Gee.HashMap<string, API.Visibility> visibility = new Gee.HashMap<string, API.Visibility> ();
+    public ListStore visibility_list = new ListStore (typeof (API.Visibility));
+    public void set_visibility (API.Visibility obj) {
+        this.visibility[obj.id] = obj;
+        visibility_list.append (obj);
+    }
+
     public async void verify_credentials () throws Error {
         var req = new Services.Network.Request.GET ("/api/v1/accounts/verify_credentials")
             .with_account (this);

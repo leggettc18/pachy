@@ -655,9 +655,9 @@ public class Pachy.Widgets.Status : Gtk.Widget {
         update_toggle_pinned_label ();
         edited_indicator.visible = status.formal.is_edited;
         edit_history_simple_action.set_enabled (status.formal.is_edited);
-        //var t_visibility = accounts.active.visibility[status.formal.visibility];
-        //visibility_indicator.icon_name = t_visibility.small_icon_name;
-        //visibility_indicator.tooltip_text = t_visibility.name;
+        var t_visibility = accounts.active.visibility[status.formal.visibility];
+        visibility_indicator.icon_name = t_visibility.small_icon_name;
+        visibility_indicator.tooltip_text = t_visibility.name;
 
         if (change_background_on_direct && status.formal.visibility == "direct") {
             add_css_class ("direct");

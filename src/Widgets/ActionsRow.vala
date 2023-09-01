@@ -40,7 +40,7 @@ public class Pachy.Widgets.ActionsRow : Gtk.Box {
                     reblog_button.default_icon_name = "media-playlist-repeat-symbolic";
                 } else {
                     reblog_button.tooltip_text = _("This post can't be boosted");
-                    // TODO: Visibility
+                    reblog_button.default_icon_name = accounts.active.visibility[this.status.visibility].icon_name;
                 }
                 return true;
             }

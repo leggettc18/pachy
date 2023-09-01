@@ -110,4 +110,40 @@ public class Pachy.Services.Accounts.Mastodon.Account : Services.Accounts.Instan
         places.append (place_follow_requests);
         places.append (place_announcements);
     }
+
+    construct {
+        set_visibility (new API.Visibility () {
+            id = "public",
+            name = _("Public"),
+            icon_name = "network-workgroup-symbolic",
+            small_icon_name = "network-workgroup-symbolic",
+            description = _("Post to public timelines"),
+        });
+        set_visibility (new API.Visibility () {
+            id = "unlisted",
+            name = _("Unlisted"),
+            icon_name = "changes-allow-symbolic",
+            small_icon_name = "changes-allow-symbolic",
+            description = _("Don\'t post to public timelines"),
+        });
+        set_visibility (new API.Visibility () {
+            id = "private",
+            name = _("Private"),
+            icon_name = "changes-prevent-symbolic",
+            small_icon_name = "changes-prevent_symbolic",
+            description = _("Post to followers only"),
+        });
+        set_visibility (new API.Visibility () {
+            id = "direct",
+            name = _("Direct"),
+            icon_name = "mail-sent-symbolic",
+            small_icon_name = "mail-sent-symbolic",
+            description = _("Post to mentioned users only"),
+        });
+    }
+
+    private static Views.Base set_as_sidebar_item (Views.Base view) {
+        view.is_sidebar_item = true;
+        return view;
+    }
 }
