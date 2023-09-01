@@ -13,7 +13,7 @@ public class Pachy.API.Status : Entity, Widgetizable {
     // TODO: StatusApplication
     public int64 replies_count { get; set; default = 0; }
     public int64 reblogs_count { get; set; default = 0; }
-    public int64 favorites_count { get; set; default = 0; }
+    public int64 favourites_count { get; set; default = 0; }
     public string created_at { get; set; default = "0"; }
     public bool reblogged { get; set; default = false; }
     public bool favourited { get; set; default = false; }
@@ -128,5 +128,60 @@ public class Pachy.API.Status : Entity, Widgetizable {
             }
         }
         return result;
+    }
+
+    private Services.Network.Request action (string action) {
+        var req = new Services.Network.Request.POST (
+            @"/api/v1/statuses/$(formal.id)/$action"
+        ).with_account (accounts.active);
+        req.priority = Soup.MessagePriority.HIGH;
+        return req;
+    }
+
+    public Services.Network.Request favorite_req () {
+        return action ("favourite");
+    }
+
+    public Services.Network.Request unfavorite_req () {
+        return action ("unfavourite");
+    }
+
+    public Services.Network.Request bookmark_req () {
+        return action ("bookmark");
+    }
+
+    public Services.Network.Request unbookmark_req () {
+        return action ("unbookmark");
+    }
+
+    public enum ReblogVisibility {
+        PUBLIC,
+        UNLISTED,
+        PRIVATE;
+
+        public string to_string () {
+            switch (this) {
+                case PUBLIC:
+                    return "public";
+                case UNLISTED:
+                    return "unlisted";
+                case PRIVATE:
+                    return "private";
+                default:
+                    return "";
+            }
+        }
+    }
+
+    public Services.Network.Request reblog_req (ReblogVisibility? visibility = null) {
+        var req = action ("reblog");
+        if (visibility != null) {
+            req.with_form_data ("visibility", visibility.to_string ());
+        }
+        return req;
+    }
+
+    public Services.Network.Request unreblog_req () {
+        return action ("unreblog");
     }
 }

@@ -1,4 +1,5 @@
 sources += files(
+    'ActionsRow.vala',
     'Avatar.vala',
     'ItemRow.vala',
     'AccountRow.vala',
@@ -7,4 +8,5 @@ sources += files(
     'MarkupView.vala',
     'RichLabel.vala',
     'Status.vala',
+    'StatusActionButton.vala',
 )

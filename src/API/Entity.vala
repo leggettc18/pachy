@@ -84,6 +84,9 @@ public class Pachy.API.Entity : Object, Widgetizable, Json.Serializable {
                 case "accounts":
                     contains = typeof (Account);
                     break;
+                case "statuses":
+                    contains = typeof (Status);
+                    break;
                 default:
                     contains = typeof (Entity);
                     break;

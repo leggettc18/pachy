@@ -40,7 +40,7 @@ public class Pachy.Widgets.Status : Gtk.Widget {
             Gtk.Widget?[] widgets_to_toggle = {
                 menu_button,
                 emoji_reactions,
-                // actions,
+                actions,
                 quoted_status_btn,
                 prev_card,
             };
@@ -110,7 +110,7 @@ public class Pachy.Widgets.Status : Gtk.Widget {
     protected Gtk.Label spoiler_label_rev;
     protected Gtk.Box spoiler_status_con;
 
-    // TODO: Actions Row public ActionsRow actions { get; private set; }
+    public ActionsRow actions { get; private set; }
     protected Gtk.PopoverMenu context_menu { get; set; }
     private const ActionEntry[] ACTION_ENTRIES = {
         {"copy-url", copy_url},
@@ -340,7 +340,7 @@ public class Pachy.Widgets.Status : Gtk.Widget {
         status.formal.account.open ();
     }
 
-    private bool has_stats { get { return status.formal.reblogs_count != 0 || status.formal.favorites_count != 0; } }
+    private bool has_stats { get { return status.formal.reblogs_count != 0 || status.formal.favourites_count != 0; } }
     private void show_view_stats_action () {
         stats_simple_action.set_enabled (has_stats);
     }
@@ -607,13 +607,13 @@ public class Pachy.Widgets.Status : Gtk.Widget {
     Binding[] bindings = {};
     protected virtual void bind () {
         soft_unbind ();
-        //if (actions != null) {
-        //    actions.unbind ();
-        //    content_column.remove (actions);
-        //}
-        //actions = new ActionsRow (this.status.formal);
-        //actions.reply.connect (on_reply_button_cilcked);
-        //content_column.append (actions);
+        if (actions != null) {
+            actions.unbind ();
+            content_column.remove (actions);
+        }
+        actions = new ActionsRow (this.status.formal);
+       // TODO:  actions.reply.connect (on_reply_button_cilcked);
+        content_column.append (actions);
 
         this.content.mentions = status.formal.mentions;
         this.content.instance_emojis = status.formal.emojis_map;
