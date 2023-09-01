@@ -303,6 +303,12 @@ public class Pachy.Widgets.Status : Gtk.Widget {
         };
         var spoiler_image = new Gtk.Image.from_icon_name ("dialog-warning-symbolic");
         spoiler_box.append (spoiler_image);
+        spoiler_label = new Gtk.Label ("Spoiler Text Here") {
+            visible = true,
+            wrap = true,
+            wrap_mode = Pango.WrapMode.WORD_CHAR,
+        };
+        spoiler_box.append (spoiler_label);
         spoiler_button.child = spoiler_box;
         spoiler_stack.add_named (spoiler_button, "spoiler");
         content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);

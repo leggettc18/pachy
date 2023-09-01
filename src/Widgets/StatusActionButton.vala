@@ -46,8 +46,7 @@ public class Pachy.Widgets.StatusActionButton : Gtk.Button {
 
             return;
         }
-        // TODO: Units
-        content.label = new_value.to_string ();
+        content.label = Utils.Units.shorten (new_value);
         content.margin_start = 12;
         content.margin_end = 9;
     }
