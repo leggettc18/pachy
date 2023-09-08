@@ -122,7 +122,16 @@ public class Pachy.Widgets.Status : Gtk.Widget {
     private SimpleAction toggle_pinned_simple_action;
 
     protected Gtk.Widget emoji_reactions;
-    // TODO: emoji reactions
+    public Gee.ArrayList<API.EmojiReaction>? reactions {
+        get { return status.formal.compat_status_reactions; }
+        set {
+            if (value == null) {
+                return;
+            }
+            emoji_reactions = new ReactionsRow (value);
+            content_column.insert_child_after (emoji_reactions, spoiler_stack);
+        }
+    }
 
     construct {
         css_classes = { "ttl-post", "card-spacing", "card", "activatable" };
@@ -422,11 +431,11 @@ public class Pachy.Widgets.Status : Gtk.Widget {
     }
 
     private void copy_url () {
-        // TODO: copy to clipboard
+        Utils.Host.copy (status.formal.url ?? status.formal.account.url);
     }
 
     private void open_in_browser () {
-        // TODO: open in browser
+        Utils.Host.open_uri (status.formal.url ?? status.formal.account.url);
     }
 
     private void view_edit_history () {
@@ -665,7 +674,7 @@ public class Pachy.Widgets.Status : Gtk.Widget {
             remove_css_class ("direct");
         }
         avatar.account = status.formal.account;
-        //reactions = status.formal.compat_status_reactions;
+        reactions = status.formal.compat_status_reactions;
 
         name_label.instance_emojis = status.formal.account.emojis_map;
         name_label.label = title_text;
@@ -688,7 +697,7 @@ public class Pachy.Widgets.Status : Gtk.Widget {
 
         show_view_stats_action ();
         formal_handler_ids += status.formal.notify["reblogs-count"].connect (show_view_stats_action);
-        formal_handler_ids += status.formal.notify["favorites-count"].connect (show_view_stats_action);
+        formal_handler_ids += status.formal.notify["favourites-count"].connect (show_view_stats_action);
         formal_handler_ids += status.formal.notify["tuba-thread-role"].connect (install_thread_line);
     }
 

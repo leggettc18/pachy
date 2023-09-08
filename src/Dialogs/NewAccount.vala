@@ -89,10 +89,7 @@ public class Pachy.Dialogs.NewAccount : Gtk.Window {
         var esc_client_id = Uri.escape_string (account.client_id);
         var pars = @"scope=$esc_scopes&response_type=code&redirect_uri=$esc_redirect&client_id=$esc_client_id";
         var url = @"$(account.instance)/oauth/authorize?$pars";
-        var success = AppInfo.launch_default_for_uri (url, null);
-        if (!success) {
-            error ("Failed to launch browser");
-        }
+        Utils.Host.open_uri (url);
     }
 
     public void redirect (string t_uri) {

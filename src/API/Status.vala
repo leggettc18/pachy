@@ -26,7 +26,8 @@ public class Pachy.API.Status : Entity, Widgetizable {
     public Status? reblog { get; set; default = null; }
     public Status? quote { get; set; default = null; }
     public Gee.ArrayList<Mention>? mentions { get; set; default = null; }
-    // TODO: EmojiReactions
+    public Gee.ArrayList<EmojiReaction>? reactions { get; set; default = null; }
+    public Gee.ArrayList<EmojiReaction>? emoji_reactions { get; set; default = null; }
     // TODO: Pleroma Status
     // TODO: Attachments
     // TODO: Polls
@@ -52,7 +53,14 @@ public class Pachy.API.Status : Entity, Widgetizable {
         return res;
     }
 
-    // TODO: compat_status_reactions
+    public Gee.ArrayList<API.EmojiReaction>? compat_status_reactions {
+        get {
+            if (emoji_reactions != null) {
+                return emoji_reactions;
+            } //TODO: else if pleroma reactions
+            return reactions;
+        }
+    }
 
     public string? t_url { get; set; }
     public string? url {

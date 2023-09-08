@@ -81,6 +81,10 @@ public class Pachy.API.Entity : Object, Widgetizable, Json.Serializable {
                 case "emojis":
                     contains = typeof (Emoji);
                     break;
+                case "emoji-reactions":
+                case "reactions":
+                    contains = typeof (EmojiReaction);
+                    break;
                 case "accounts":
                     contains = typeof (Account);
                     break;

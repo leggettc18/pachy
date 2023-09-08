@@ -130,7 +130,7 @@ public class Pachy.Services.Accounts.Mastodon.Account : Services.Accounts.Instan
             id = "private",
             name = _("Private"),
             icon_name = "changes-prevent-symbolic",
-            small_icon_name = "changes-prevent_symbolic",
+            small_icon_name = "changes-prevent-symbolic",
             description = _("Post to followers only"),
         });
         set_visibility (new API.Visibility () {

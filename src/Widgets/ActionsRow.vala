@@ -151,7 +151,7 @@ public class Pachy.Widgets.ActionsRow : Gtk.Box {
         status_btn.amount += status_btn.active ? 1 : -1;
 
         debug (@"Performing status action '$action'…");
-        mastodon_action (status_btn, req, action, "favorites-count");
+        mastodon_action (status_btn, req, action, "favourites-count");
     }
 
     private void on_boost_button_clicked (Gtk.Button btn) {

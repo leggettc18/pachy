@@ -6,6 +6,7 @@ sources += files(
     'Emoji.vala',
     'EmojiLabel.vala',
     'MarkupView.vala',
+    'ReactionsRow.vala',
     'RichLabel.vala',
     'Status.vala',
     'StatusActionButton.vala',
